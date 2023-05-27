@@ -41,6 +41,12 @@ export const idTask = async(req: Request, res: Response)=>{
 export const deleteId = async(req: Request, res: Response)=>{
     let { id } = req.params
 
+    await toList.destroy({
+        where:{id}
+    })
+    res.json({})
+
+    /*
     if(isNaN(parseInt(id))){
         res.sendStatus(400)
         await toList.destroy({
@@ -50,9 +56,10 @@ export const deleteId = async(req: Request, res: Response)=>{
     }else{
         res.sendStatus(200)
     }
+    */
 }
 
-export const update = async(req: Request, res: Response)=>{
+export const tasksUpdate = async(req: Request, res: Response)=>{
     let { id } = req.params
     let { title, status, created_at } = req.body
 
