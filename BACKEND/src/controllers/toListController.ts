@@ -39,31 +39,31 @@ export const idTask = async(req: Request, res: Response)=>{
 }
 
 export const deleteId = async(req: Request, res: Response)=>{
+    
+
     let { id } = req.params
 
-    await toList.destroy({
-        where:{id}
-    })
-    res.json({})
-
-    /*
-    if(isNaN(parseInt(id))){
+    if(isNaN(parseInt(req.params.id))){
         res.sendStatus(400)
+
+    }else{
+
         await toList.destroy({
             where:{id}
         })
+        //res.sendStatus(200)
         res.json({})
-    }else{
-        res.sendStatus(200)
     }
-    */
+    
 }
 
 export const tasksUpdate = async(req: Request, res: Response)=>{
     let { id } = req.params
     let { title, status, created_at } = req.body
 
-    if(isNaN(parseInt(id))){
+    if(isNaN(parseInt(req.params.id))){
+        res.sendStatus(400)
+    }else{
         let tasksUpdate  = await toList.findByPk(id)
 
         if(tasksUpdate != undefined){
@@ -73,9 +73,7 @@ export const tasksUpdate = async(req: Request, res: Response)=>{
 
             await tasksUpdate.save()
 
-            res.json({tasksUpdate})
-        }else{
-            res.sendStatus(200)
-        }
+        res.json({tasksUpdate})
+    }
     }
 }
